@@ -40,6 +40,10 @@ const Canvas: React.FC = () => {
     });
   };
 
+  const handleRectMouseDown = (e: Konva.KonvaEventObject<MouseEvent>) => {
+    e.cancelBubble = true;
+  };
+
   return (
     <div>
       <Stage
@@ -56,6 +60,7 @@ const Canvas: React.FC = () => {
             height={INITIAL_STATE.height}
             fill={INITIAL_STATE.fill}
             shadowBlur={INITIAL_STATE.shadowBlur}
+            onMouseDown={handleRectMouseDown}
           />
           <Rect
             x={50}
@@ -64,6 +69,7 @@ const Canvas: React.FC = () => {
             height={INITIAL_STATE.height}
             fill={INITIAL_STATE.fill}
             shadowBlur={INITIAL_STATE.shadowBlur}
+            onMouseDown={handleRectMouseDown}
           />
         </Layer>
       </Stage>

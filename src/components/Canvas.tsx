@@ -1,14 +1,8 @@
 import Konva from "konva";
 import React, { useState, useEffect } from "react";
-import { Layer, Rect, Stage } from "react-konva";
-
-// Initial state of future component
-const INITIAL_STATE = {
-  width: 100,
-  height: 100,
-  fill: "red",
-  shadowBlur: 10,
-};
+import { Layer, Stage } from "react-konva";
+import TreeComponent from "./TreeComponent";
+import { INITIAL_STAGE_STATE } from "../config/EXAMPLE_STAGE_STATE";
 
 const Canvas: React.FC = () => {
   const [dimensions, setDimensions] = useState({
@@ -40,10 +34,6 @@ const Canvas: React.FC = () => {
     });
   };
 
-  const handleRectMouseDown = (e: Konva.KonvaEventObject<MouseEvent>) => {
-    e.cancelBubble = true;
-  };
-
   return (
     <div>
       <Stage
@@ -51,26 +41,12 @@ const Canvas: React.FC = () => {
         height={dimensions.height}
         draggable
         onDragMove={handleDragMove}
+        style={{ cursor: "move" }}
       >
         <Layer x={layerPosition.x} y={layerPosition.y}>
-          <Rect
-            x={dimensions.width / 2 - INITIAL_STATE.width / 2}
-            y={dimensions.height / 2 - INITIAL_STATE.height / 2}
-            width={INITIAL_STATE.width}
-            height={INITIAL_STATE.height}
-            fill={INITIAL_STATE.fill}
-            shadowBlur={INITIAL_STATE.shadowBlur}
-            onMouseDown={handleRectMouseDown}
-          />
-          <Rect
-            x={50}
-            y={50}
-            width={INITIAL_STATE.width}
-            height={INITIAL_STATE.height}
-            fill={INITIAL_STATE.fill}
-            shadowBlur={INITIAL_STATE.shadowBlur}
-            onMouseDown={handleRectMouseDown}
-          />
+          {INITIAL_STAGE_STATE.map((component) => (
+            <TreeComponent key={component.id} item={component.item} />
+          ))}
         </Layer>
       </Stage>
     </div>

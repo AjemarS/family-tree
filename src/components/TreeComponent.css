@@ -1,0 +1,18 @@
+.tree-component {
+    width: 100px;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    border: 1px solid #000;
+    border-radius: 5px;
+    background-color: wheat;
+    cursor: default;
+}
+
+.tree-component__text {
+    font-size: 0.8em;
+    text-align: center;
+}

@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Layer, Stage } from "react-konva";
 import TreeComponent from "./TreeComponent";
 import { INITIAL_STAGE_STATE } from "../config/EXAMPLE_STAGE_STATE";
+import AddTreeComponent from "./AddTreeComponent";
 
 const Canvas: React.FC = () => {
   const [dimensions, setDimensions] = useState({
@@ -47,6 +48,7 @@ const Canvas: React.FC = () => {
           {INITIAL_STAGE_STATE.map((component) => (
             <TreeComponent key={component.id} item={component.item} />
           ))}
+          <AddTreeComponent item={{ x: 1000, y: 250 }} />
         </Layer>
       </Stage>
     </div>

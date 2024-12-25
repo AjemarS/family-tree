@@ -5,6 +5,7 @@ import TreeComponent from "./TreeComponent";
 import { INITIAL_STAGE_STATE } from "../config/EXAMPLE_STAGE_STATE";
 import AddTreeComponent from "./AddTreeComponent";
 import Popup from "./Popup/Popup";
+import AncestorForm from "./AncestorForm";
 
 const Canvas: React.FC = () => {
   const [dimensions, setDimensions] = useState({
@@ -44,10 +45,13 @@ const Canvas: React.FC = () => {
         onClose={() => setIsPopupOpen(false)}
         isOpen={isPopupOpen}
         content={
-          <div>
-            <h1>Popup</h1>
-            <p>Popup content</p>
-          </div>
+          <AncestorForm
+            handleSubmit={(formData) => {
+              // For now, just log the form data
+              console.log(formData);
+              setIsPopupOpen(false);
+            }}
+          />
         }
       >
         <Stage

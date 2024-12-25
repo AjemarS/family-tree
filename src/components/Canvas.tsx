@@ -4,6 +4,7 @@ import { Layer, Stage } from "react-konva";
 import TreeComponent from "./TreeComponent";
 import { INITIAL_STAGE_STATE } from "../config/EXAMPLE_STAGE_STATE";
 import AddTreeComponent from "./AddTreeComponent";
+import Popup from "./Popup/Popup";
 
 const Canvas: React.FC = () => {
   const [dimensions, setDimensions] = useState({
@@ -12,6 +13,8 @@ const Canvas: React.FC = () => {
   });
 
   const [layerPosition, setLayerPosition] = useState({ x: 0, y: 0 });
+
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -37,20 +40,37 @@ const Canvas: React.FC = () => {
 
   return (
     <div>
-      <Stage
-        width={dimensions.width}
-        height={dimensions.height}
-        draggable
-        onDragMove={handleDragMove}
-        style={{ cursor: "move" }}
+      <Popup
+        onClose={() => setIsPopupOpen(false)}
+        isOpen={isPopupOpen}
+        content={
+          <div>
+            <h1>Popup</h1>
+            <p>Popup content</p>
+          </div>
+        }
       >
-        <Layer x={layerPosition.x} y={layerPosition.y}>
-          {INITIAL_STAGE_STATE.map((component) => (
-            <TreeComponent key={component.id} item={component.item} />
-          ))}
-          <AddTreeComponent item={{ x: 1000, y: 250 }} />
-        </Layer>
-      </Stage>
+        <Stage
+          width={dimensions.width}
+          height={dimensions.height}
+          draggable
+          onDragMove={handleDragMove}
+          style={{ cursor: "move", overflow: "hidden" }}
+        >
+          <Layer x={layerPosition.x} y={layerPosition.y}>
+            {INITIAL_STAGE_STATE.map((component) => (
+              <TreeComponent key={component.id} item={component.item} />
+            ))}
+
+            <AddTreeComponent
+              item={{ x: 750, y: 250 }}
+              handleClick={() => {
+                setIsPopupOpen(!isPopupOpen);
+              }}
+            />
+          </Layer>
+        </Stage>
+      </Popup>
     </div>
   );
 };

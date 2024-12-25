@@ -7,15 +7,17 @@ interface AddTreeComponentProps {
     x: number;
     y: number;
   };
+  handleClick: (isPopupOpen: boolean) => void;
 }
 
-const AddTreeComponent: React.FC<AddTreeComponentProps> = ({ item }) => {
+const AddTreeComponent: React.FC<AddTreeComponentProps> = ({ item, handleClick }) => {
   return (
     <Html>
       <div
         className="add-tree-component"
         onMouseDown={(e) => e.preventDefault()}
         style={{ position: "absolute", left: item.x, top: item.y }}
+        onClick={(isPopupOpen) => handleClick(!isPopupOpen)}
       >
         <span className="add-tree-component__btn">+</span>
         <span className="add-tree-component__text">Add ancestor</span>

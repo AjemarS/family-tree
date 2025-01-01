@@ -2,12 +2,14 @@ import Konva from "konva";
 import React, { useState, useEffect } from "react";
 import { Layer, Stage } from "react-konva";
 import TreeComponent from "./TreeComponent";
-import { INITIAL_STAGE_STATE } from "../config/EXAMPLE_STAGE_STATE";
 import AddTreeComponent from "./AddTreeComponent";
 import Popup from "./Popup/Popup";
 import AncestorForm from "./AncestorForm/AncestorForm";
+import { StageState } from "../types";
 
 const Canvas: React.FC = () => {
+  const [ancestors, setAncestors] = useState<StageState["items"]>([]);
+
   const [dimensions, setDimensions] = useState({
     width: window.innerWidth,
     height: window.innerHeight,
@@ -47,8 +49,25 @@ const Canvas: React.FC = () => {
         content={
           <AncestorForm
             handleSubmit={(formData) => {
-              // For now, just log the form data
-              console.log(formData);
+              setAncestors((ancestors) => [
+                ...ancestors,
+                {
+                  id: 1,
+                  item: {
+                    x: 0,
+                    y: 0,
+                    text: formData.name,
+                    Meta: {
+                      name: formData.name,
+                      gender: formData.gender,
+                      dateOfBirth: formData.dateOfBirth,
+                      description: formData.description,
+                      image: formData.image ? URL.createObjectURL(formData.image) : null,
+                    },
+                  },
+                },
+              ]);
+              console.log(ancestors);
               setIsPopupOpen(false);
             }}
           />
@@ -62,7 +81,7 @@ const Canvas: React.FC = () => {
           style={{ cursor: "move", overflow: "hidden" }}
         >
           <Layer x={layerPosition.x} y={layerPosition.y}>
-            {INITIAL_STAGE_STATE.map((component) => (
+            {ancestors.map((component) => (
               <TreeComponent key={component.id} item={component.item} />
             ))}
 

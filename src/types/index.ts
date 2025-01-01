@@ -2,6 +2,13 @@ export interface ILeaf {
   x: number;
   y: number;
   text: string;
+  Meta: {
+    name: string;
+    gender: "male" | "female";
+    dateOfBirth: string;
+    description: string;
+    image: string | null;
+  };
 }
 
 export interface StageState {

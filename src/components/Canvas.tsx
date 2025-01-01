@@ -5,7 +5,7 @@ import TreeComponent from "./TreeComponent";
 import { INITIAL_STAGE_STATE } from "../config/EXAMPLE_STAGE_STATE";
 import AddTreeComponent from "./AddTreeComponent";
 import Popup from "./Popup/Popup";
-import AncestorForm from "./AncestorForm";
+import AncestorForm from "./AncestorForm/AncestorForm";
 
 const Canvas: React.FC = () => {
   const [dimensions, setDimensions] = useState({
